@@ -1,69 +1,17 @@
-const mysql = require('mysql');
 const tableify = require('console.table');
-require('dotenv').config();
+const conn = require('./config/connection').conn;
 
-const conn = mysql.createConnection({
-  host: process.env.DBHOST,
-  port: process.env.DBPORT,
-  user: process.env.DBUSER,
-  password: process.env.DBPASS
-});
+function db() {
 
-conn.connect((err) => {
-  if (err) throw err;
-
-  console.log("Connected!");
-});
-
-// conn.query('DROP DATABASE IF EXISTS trackerdb', (err) => {
-//   if (err) throw err;
-// });
-
-conn.query("CREATE DATABASE IF NOT EXISTS trackerdb", (err) => {
-  if (err) throw err;
-
-  console.log("Database created");
-});
-
-conn.query("USE trackerdb", (err) => {
-  if (err) throw err;
-
-  console.log("Using trackerdb!");
-});
-
-const createDeptTbl = "CREATE TABLE IF NOT EXISTS department (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), PRIMARY KEY (id))"
-const createRoleTbl = "CREATE TABLE IF NOT EXISTS role (id INT NOT NULL AUTO_INCREMENT, title VARCHAR(30), salary DECIMAL, department_id INT, PRIMARY KEY (id))"
-const createEmpTbl = "CREATE TABLE IF NOT EXISTS employee (id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(30), last_name VARCHAR(30), role_id INT, manager_id INT, PRIMARY KEY (id))";
-
-conn.query(createDeptTbl, function (err, result) {
-  if (err) throw err;
-  console.log("Department table created");
-});
-
-conn.query(createRoleTbl, function (err, result) {
-  if (err) throw err;
-  console.log("Role table created");
-});
-
-conn.query(createEmpTbl, function (err, result) {
-  if (err) throw err;
-  console.log("Employee table created");
-});
-
-// conn.query('INSERT INTO department (name) VALUES (\'Manager\')', (err) => {
-//   if (err) throw err;
-// });
-
-// conn.query('SELECT * FROM department WHERE (name = \'Manager\')', (err, res) => {
-//   if (err) throw err;
-//   console.log(res[0].id, res[0].name);
-// });
-
-const db = () => {
+  console.log('in db');
+  // const conn = await connection();
+  // await conn.connect();
+  
   
   this.addDept = (name) => {
-    conn.query(`INSERT INTO department (name) VALUES (${name})`, (err) => {
-      if (err) throw err;
+    console.log('in addDept');
+    conn.query(`INSERT INTO department(name) VALUES ('${name}')`, (err) => {
+      if (err) console.log(err);
     });
   };
 
