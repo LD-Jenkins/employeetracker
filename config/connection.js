@@ -17,8 +17,7 @@ const connection = new Promise((resolve, reject) =>{
   conn.connect((err) => {
     if (err) throw err;
     console.log("Connected!");
-    // conn.query('DROP DATABASE IF EXISTS trackerdb', (err) => {
-    //   if (err) throw err;
+    
       conn.query("CREATE DATABASE IF NOT EXISTS trackerdb", (err) => {
         if (err) throw err;
         console.log("Database available");
@@ -42,7 +41,7 @@ const connection = new Promise((resolve, reject) =>{
       });
     });
   }); 
-// });
+
 
 module.exports.connection = connection;
 module.exports.conn = conn;

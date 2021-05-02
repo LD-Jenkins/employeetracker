@@ -245,6 +245,6 @@ async function main() {
   process.exit();
 }
 
-
-
-
+process.on('SIGINT', () => {
+  process.exit();
+});

@@ -48,7 +48,7 @@ function db() {
         });
       } else {
         conn.query(`SELECT m.id FROM employee m WHERE m.first_name = '${mFirst}' AND m.last_name = '${mLast}'`, (err, res) => {
-          console.log(res);
+          
           if (err) {
             console.log('\nCould not find that manager.');
             throw err;
