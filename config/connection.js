@@ -17,23 +17,23 @@ const connection = new Promise((resolve, reject) =>{
   conn.connect((err) => {
     if (err) throw err;
     console.log("Connected!");
-    conn.query('DROP DATABASE IF EXISTS trackerdb', (err) => {
-      if (err) throw err;
+    // conn.query('DROP DATABASE IF EXISTS trackerdb', (err) => {
+    //   if (err) throw err;
       conn.query("CREATE DATABASE IF NOT EXISTS trackerdb", (err) => {
         if (err) throw err;
-        console.log("Database created");
+        console.log("Database available");
         conn.query("USE trackerdb", (err) => {
           if (err) throw err;
           console.log("Using trackerdb!");
           conn.query(createDeptTbl, function (err, result) {
             if (err) throw err;
-            console.log("Department table created");
+            console.log("Department table available");
             conn.query(createRoleTbl, function (err, result) {
               if (err) throw err;
-              console.log("Role table created");
+              console.log("Role table available");
               conn.query(createEmpTbl, function (err, result) {
                 if (err) throw err;
-                console.log("Employee table created");
+                console.log("Employee table available");
                 resolve();
               });
             });
@@ -42,7 +42,7 @@ const connection = new Promise((resolve, reject) =>{
       });
     });
   }); 
-});
+// });
 
 module.exports.connection = connection;
 module.exports.conn = conn;
